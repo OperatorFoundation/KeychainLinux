@@ -6,11 +6,11 @@ import CryptoKit
 import Crypto
 #endif
 
-class Keychain
+public class Keychain
 {
-    var keychainURL: URL
+    public var keychainURL: URL
     
-    init?(baseDirectory: URL)
+    public init?(baseDirectory: URL)
     {
         // Make sure that the base directory selected by the user already exists.
         // Fail if it doesn't.
@@ -42,7 +42,7 @@ class Keychain
         }
     }
     
-    func retrieveOrGeneratePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
+    public func retrieveOrGeneratePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
     {
         if let privateKey = retrievePrivateKey(label: label)
         {
@@ -54,7 +54,7 @@ class Keychain
         }
     }
     
-    func generateAndSavePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
+    public func generateAndSavePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
     {
         let privateKey = P256.KeyAgreement.PrivateKey()
         
@@ -69,7 +69,7 @@ class Keychain
         return privateKey
     }
     
-    func storePrivateKey(_ key: P256.KeyAgreement.PrivateKey, label: String) -> Bool
+    public func storePrivateKey(_ key: P256.KeyAgreement.PrivateKey, label: String) -> Bool
     {
         let keyData = key.x963Representation
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
@@ -79,7 +79,7 @@ class Keychain
         return FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
     }
     
-    func retrievePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
+    public func retrievePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
     {
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
         
@@ -124,6 +124,21 @@ class Keychain
         {
             print("Error retrieving key: \(retrieveDataError)")
             return nil
+        }
+    }
+    
+    public func deleteKey(label: String)
+    {
+        let fileURL = keychainURL.appendingPathComponent("\(label).private")
+        
+        // TODO: Secure delete
+        do
+        {
+            try FileManager.default.removeItem(at: fileURL)
+        }
+        catch let removeFileError
+        {
+            print("Error attempting to remove private key file: \(removeFileError)")
         }
     }
 }

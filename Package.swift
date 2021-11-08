@@ -3,26 +3,6 @@
 
 import PackageDescription
 
-#if os(iOS) || os(macOS) || os(watchOS) || os(tvOS)
-let package = Package(
-    name: "KeychainLinux",
-    platforms: [.macOS(.v10_15)],
-    products: [.library(name: "KeychainLinux", targets: ["KeychainLinux"]),],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0"),
-    ],
-    targets: [
-        .target(
-            name: "KeychainLinux",
-            dependencies: [
-                .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux]))]),
-        .testTarget(
-            name: "KeychainLinuxTests",
-            dependencies: ["KeychainLinux"]),
-    ],
-    swiftLanguageVersions: [.v5]
-)
-#elseif os(Linux)
 let package = Package(
     name: "KeychainLinux",
     products: [
@@ -44,4 +24,3 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
-#endif

@@ -6,10 +6,10 @@ import PackageDescription
 #if os(iOS) || os(macOS) || os(watchOS) || os(tvOS)
 let package = Package(
     name: "KeychainLinux",
-    platforms: [.macOS(.v11)],
+    platforms: [.macOS(.v10_15)],
     products: [.library(name: "KeychainLinux", targets: ["KeychainLinux"]),],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "1.1.6"),
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0"),
     ],
     targets: [
         .target(
@@ -31,7 +31,7 @@ let package = Package(
             targets: ["KeychainLinux"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "1.1.6"),
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0"),
     ],
     targets: [
         .target(

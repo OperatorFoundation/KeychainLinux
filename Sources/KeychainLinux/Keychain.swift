@@ -1,7 +1,7 @@
 import Foundation
 import Crypto
 
-public class Keychain
+public class Keychain: Codable
 {
     public var keychainURL: URL
     

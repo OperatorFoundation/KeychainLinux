@@ -5,8 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "KeychainLinux",
-    platforms: [.macOS(.v10_15),
-                .iOS(.v15)],
+    platforms: [
+        .macOS(.v12),
+        .iOS(.v15)
+    ],
     products: [
         .library(
             name: "KeychainLinux",
@@ -14,12 +16,16 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0"),
+        .package(url: "https://github.com/OperatorFoundation/KeychainTypes", branch: "main"),
     ],
     targets: [
         .target(
             name: "KeychainLinux",
             dependencies: [
-                .product(name: "Crypto", package: "swift-crypto")]),
+                .product(name: "Crypto", package: "swift-crypto"),
+                "KeychainTypes",
+            ]
+        ),
         .testTarget(
             name: "KeychainLinuxTests",
             dependencies: ["KeychainLinux"]),

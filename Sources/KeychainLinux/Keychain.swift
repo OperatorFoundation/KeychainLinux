@@ -1,7 +1,9 @@
-import Foundation
 import Crypto
+import Foundation
 
-public class Keychain: Codable
+import KeychainTypes
+
+public class Keychain: Codable, KeychainProtocol
 {
     public var keychainURL: URL
     
@@ -37,36 +39,68 @@ public class Keychain: Codable
         }
     }
     
-    public func retrieveOrGeneratePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
+    public func retrieveOrGeneratePrivateKey(label: String, type: KeyType) -> PrivateKey?
     {
-        if let privateKey = retrievePrivateKey(label: label)
+        // Do we already have a key?
+        if let key = retrievePrivateKey(label: label, type: type)
         {
+            guard key.type == type else
+            {
+                return nil
+            }
+
+            return key
+        }
+
+        do
+        {
+            // We don't?
+            // Let's create some and return those
+            let privateKey = try PrivateKey(type: type)
+
+            // Save the key we stored
+            let stored = storePrivateKey(privateKey, label: label)
+            if !stored
+            {
+                print("😱 Failed to store our new server key.")
+                return nil
+            }
             return privateKey
         }
-        else
+        catch
         {
-            return generateAndSavePrivateKey(label: label)
-        }
-    }
-    
-    public func generateAndSavePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
-    {
-        let privateKey = P256.KeyAgreement.PrivateKey()
-        
-        // Save the key we stored
-        let stored = storePrivateKey(privateKey, label: label)
-        if !stored
-        {
-            print("😱 Failed to store our new server key.")
             return nil
         }
-        
-        return privateKey
     }
     
-    public func storePrivateKey(_ key: P256.KeyAgreement.PrivateKey, label: String) -> Bool
+    public func generateAndSavePrivateKey(label: String, type: KeyType) -> PrivateKey?
     {
-        let keyData = key.x963Representation
+        do
+        {
+            let privateKey = try PrivateKey(type: type)
+
+            // Save the key we stored
+            let stored = storePrivateKey(privateKey, label: label)
+            if !stored
+            {
+                print("😱 Failed to store our new server key.")
+                return nil
+            }
+
+            return privateKey
+        }
+        catch
+        {
+            return nil
+        }
+    }
+    
+    public func storePrivateKey(_ key: PrivateKey, label: String) -> Bool
+    {
+        guard let keyData = key.typedData else
+        {
+            return false
+        }
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
         
         // Create a file with posix file permission set to "-rw-------"
@@ -74,7 +108,7 @@ public class Keychain: Codable
         return FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
     }
     
-    public func retrievePrivateKey(label: String) -> P256.KeyAgreement.PrivateKey?
+    public func retrievePrivateKey(label: String, type: KeyType) -> PrivateKey?
     {
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
         
@@ -111,7 +145,7 @@ public class Keychain: Codable
         do
         {
             let keyData = try Data(contentsOf: fileURL, options: .uncached)
-            let privateKey = try P256.KeyAgreement.PrivateKey(x963Representation: keyData)
+            let privateKey = try PrivateKey(typedData: keyData)
             
             return privateKey
         }
@@ -135,5 +169,10 @@ public class Keychain: Codable
         {
             print("Error attempting to remove private key file: \(removeFileError)")
         }
+    }
+
+    public func generateKeySearchQuery(label: String) -> CFDictionary
+    {
+        return [:] as CFDictionary
     }
 }

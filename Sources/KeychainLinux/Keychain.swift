@@ -196,9 +196,4 @@ public class Keychain: Codable, KeychainProtocol
             print("Error attempting to remove private key file: \(removeFileError)")
         }
     }
-
-    public func generateKeySearchQuery(label: String) -> CFDictionary
-    {
-        return [:] as CFDictionary
-    }
 }

@@ -1,6 +1,7 @@
 import Crypto
 import Foundation
 
+import Gardener
 import KeychainTypes
 
 public class Keychain: Codable, KeychainProtocol
@@ -11,11 +12,13 @@ public class Keychain: Codable, KeychainProtocol
     {
         // Make sure that the base directory selected by the user already exists.
         // Fail if it doesn't.
-        guard FileManager.default.fileExists(atPath: baseDirectory.path)
-        else
+        if !File.exists(baseDirectory.path)
         {
-            print("Unable to initialize keychain, the selected directory does not exist.")
-            return nil
+            guard File.makeDirectory(url: baseDirectory) else
+            {
+                print("Unable to initialize keychain, the selected directory does not exist and could not be created.")
+                return nil
+            }
         }
         
         // Append keychain directory to the base url provided

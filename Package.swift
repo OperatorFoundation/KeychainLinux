@@ -16,6 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-crypto.git", from: "2.0.0"),
+        .package(url: "https://github.com/OperatorFoundation/Gardener", branch: "main"),
         .package(url: "https://github.com/OperatorFoundation/KeychainTypes", branch: "main"),
     ],
     targets: [
@@ -23,6 +24,7 @@ let package = Package(
             name: "KeychainLinux",
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto"),
+                "Gardener",
                 "KeychainTypes",
             ]
         ),

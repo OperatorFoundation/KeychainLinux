@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "chord",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OperatorFoundation/Chord.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "82ac7a48e7876e0623475274cff2ae602d84d495"
+      }
+    },
+    {
       "identity" : "datable",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/OperatorFoundation/Datable",
       "state" : {
         "branch" : "main",
-        "revision" : "93daf97ee4b6fcb275e22cc2ce1f019409cb257e"
+        "revision" : "8cb921cab89b0d2a21b356734377cd449e7476ed"
+      }
+    },
+    {
+      "identity" : "gardener",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OperatorFoundation/Gardener",
+      "state" : {
+        "branch" : "main",
+        "revision" : "421ab351f9f252b0aeb9da6e227ce0f08e701856"
       }
     },
     {
@@ -15,7 +33,7 @@
       "location" : "https://github.com/OperatorFoundation/KeychainTypes",
       "state" : {
         "branch" : "main",
-        "revision" : "44bc8c44c7bd4cf6e7d080e2975356abb7770613"
+        "revision" : "46528f7a760412a709f20eca174b475d17c9d808"
       }
     },
     {
@@ -25,6 +43,24 @@
       "state" : {
         "revision" : "d9825fa541df64b1a7b182178d61b9a82730d01f",
         "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system",
+      "state" : {
+        "revision" : "025bcb1165deab2e20d4eaba79967ce73013f496",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swiftqueue",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OperatorFoundation/SwiftQueue",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5d59db6aa86b7e1b419c027af1a61f2572475538"
       }
     }
   ],

@@ -6,7 +6,7 @@
       "location" : "https://github.com/OperatorFoundation/Chord.git",
       "state" : {
         "branch" : "main",
-        "revision" : "82ac7a48e7876e0623475274cff2ae602d84d495"
+        "revision" : "e11afa6b336652fa60dacc3b7c30071fef38fb61"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/OperatorFoundation/Datable",
       "state" : {
         "branch" : "main",
-        "revision" : "8cb921cab89b0d2a21b356734377cd449e7476ed"
+        "revision" : "19a6479e2077259cf5ef7875b0ba34ab24e65d73"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/OperatorFoundation/Gardener",
       "state" : {
         "branch" : "main",
-        "revision" : "421ab351f9f252b0aeb9da6e227ce0f08e701856"
+        "revision" : "1ad3a0f4ab41002e34b28b12662fc4e3ea64b29a"
       }
     },
     {
@@ -33,16 +33,16 @@
       "location" : "https://github.com/OperatorFoundation/KeychainTypes",
       "state" : {
         "branch" : "main",
-        "revision" : "46528f7a760412a709f20eca174b475d17c9d808"
+        "revision" : "c09fe0599c3cd552c41788533bf8d84407b909b6"
       }
     },
     {
       "identity" : "swift-crypto",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-crypto.git",
+      "location" : "https://github.com/apple/swift-crypto",
       "state" : {
-        "revision" : "d9825fa541df64b1a7b182178d61b9a82730d01f",
-        "version" : "2.1.0"
+        "revision" : "92a04c10fc5ce0504f8396aac7392126033e547c",
+        "version" : "2.2.2"
       }
     },
     {

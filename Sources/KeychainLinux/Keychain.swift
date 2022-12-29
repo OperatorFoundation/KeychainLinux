@@ -97,6 +97,12 @@ public class Keychain: Codable, KeychainProtocol
             while privateKey == nil
             {
                 let tempPrivateKey = try PrivateKey.new(type: type)
+
+                guard tempPrivateKey.type == type else
+                {
+                    return nil
+                }
+
                 guard tempPrivateKey.data != nil else
                 {
                     continue

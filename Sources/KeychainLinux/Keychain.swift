@@ -206,7 +206,7 @@ public class Keychain: Codable, KeychainProtocol
         }
     }
 
-    func storePassword(server: String, username: String, password: String) throws -> Bool
+    public func storePassword(server: String, username: String, password: String) throws -> Bool
     {
         let credential = UsernameAndPassword(username: username, password: password)
         let encoder = JSONEncoder()
@@ -219,7 +219,7 @@ public class Keychain: Codable, KeychainProtocol
         return FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
     }
 
-    func retrievePassword(server: String) throws -> (username: String, password: String)
+    public func retrievePassword(server: String) throws -> (username: String, password: String)
     {
         let fileURL = keychainURL.appendingPathComponent("\(server).credential")
 
@@ -268,7 +268,7 @@ public class Keychain: Codable, KeychainProtocol
         }
     }
 
-    func deletePassword(server: String) throws
+    public func deletePassword(server: String) throws
     {
         let fileURL = keychainURL.appendingPathComponent("\(server).credential")
 

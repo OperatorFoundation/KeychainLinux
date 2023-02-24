@@ -205,4 +205,90 @@ public class Keychain: Codable, KeychainProtocol
             print("Error attempting to remove private key file: \(removeFileError)")
         }
     }
+
+    func storePassword(server: String, username: String, password: String) throws -> Bool
+    {
+        let credential = UsernameAndPassword(username: username, password: password)
+        let encoder = JSONEncoder()
+        let keyData = try encoder.encode(credential)
+
+        let fileURL = keychainURL.appendingPathComponent("\(server).credential")
+
+        // Create a file with posix file permission set to "-rw-------"
+        // non-directory, read and write for the owner of the file only, no one else can see that file exists (except root)
+        return FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
+    }
+
+    func retrievePassword(server: String) throws -> (username: String, password: String)
+    {
+        let fileURL = keychainURL.appendingPathComponent("\(server).credential")
+
+        do
+        {
+            // Make sure that permissions have not been altered for the directory
+            let directoryAttributes = try FileManager.default.attributesOfItem(atPath: keychainURL.path)
+            let directoryPosixPermissions = directoryAttributes[.posixPermissions]
+
+            guard directoryPosixPermissions as? Int == 0o700
+            else
+            {
+                print("Unable to retrieve the private key, the keychain directory permissions have been changed.")
+                throw KeychainLinuxError.readFailed
+            }
+
+            // Make sure that permissions have not been altered for the key file
+            let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
+            let filePosixPermissions = fileAttributes[.posixPermissions]
+
+            guard filePosixPermissions as? Int == 0o600
+            else
+            {
+                print("Unable to retrieve the private key, the key file permissions have been changed.")
+                throw KeychainLinuxError.readFailed
+            }
+        }
+        catch let permissionsError
+        {
+            print("Error checking permission: \(permissionsError)" )
+            throw KeychainLinuxError.readFailed
+        }
+
+        do
+        {
+            let keyData = try Data(contentsOf: fileURL, options: .uncached)
+            let decoder = JSONDecoder()
+            let credential: UsernameAndPassword = try decoder.decode(UsernameAndPassword.self, from: keyData)
+
+            return (credential.username, credential.password)
+        }
+        catch let retrieveDataError
+        {
+            print("Error retrieving key: \(retrieveDataError)")
+            throw KeychainLinuxError.readFailed
+        }
+    }
+
+    func deletePassword(server: String) throws
+    {
+        let fileURL = keychainURL.appendingPathComponent("\(server).credential")
+
+        try FileManager.default.removeItem(at: fileURL)
+    }
+}
+
+struct UsernameAndPassword: Codable
+{
+    public let username: String
+    public let password: String
+
+    public init(username: String, password: String)
+    {
+        self.username = username
+        self.password = password
+    }
+}
+
+public enum KeychainLinuxError: Error
+{
+    case readFailed
 }

@@ -206,7 +206,7 @@ public class Keychain: Codable, KeychainProtocol
         }
     }
 
-    public func storePassword(server: String, username: String, password: String) throws -> Bool
+    public func storePassword(server: String, username: String, password: String) throws
     {
         let credential = UsernameAndPassword(username: username, password: password)
         let encoder = JSONEncoder()
@@ -216,7 +216,12 @@ public class Keychain: Codable, KeychainProtocol
 
         // Create a file with posix file permission set to "-rw-------"
         // non-directory, read and write for the owner of the file only, no one else can see that file exists (except root)
-        return FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
+        let passwordStored = FileManager.default.createFile(atPath: fileURL.path, contents: keyData, attributes: [.posixPermissions : 0o600])
+        
+        if !passwordStored
+        {
+            throw KeychainLinuxError.createPasswordFileFailed
+        }
     }
 
     public func retrievePassword(server: String) throws -> (username: String, password: String)
@@ -291,4 +296,5 @@ struct UsernameAndPassword: Codable
 public enum KeychainLinuxError: Error
 {
     case readFailed
+    case createPasswordFileFailed
 }

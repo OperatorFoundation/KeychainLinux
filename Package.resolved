@@ -6,7 +6,7 @@
       "location" : "https://github.com/OperatorFoundation/Chord.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e11afa6b336652fa60dacc3b7c30071fef38fb61"
+        "revision" : "ab5237fbd0d0f02fb7d1c0ecf138aeb0b2ee7d9a"
       }
     },
     {
@@ -24,7 +24,16 @@
       "location" : "https://github.com/OperatorFoundation/Gardener",
       "state" : {
         "branch" : "main",
-        "revision" : "1ad3a0f4ab41002e34b28b12662fc4e3ea64b29a"
+        "revision" : "21a201a85e108dc0caf2cbbbae3cae0f5d59b169"
+      }
+    },
+    {
+      "identity" : "glob",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Bouke/Glob",
+      "state" : {
+        "revision" : "deda6e163d2ff2a8d7e138e2c3326dbd71157faf",
+        "version" : "1.0.5"
       }
     },
     {
@@ -33,7 +42,25 @@
       "location" : "https://github.com/OperatorFoundation/KeychainTypes",
       "state" : {
         "branch" : "main",
-        "revision" : "c09fe0599c3cd552c41788533bf8d84407b909b6"
+        "revision" : "d188743b4e8e854c8c3ecd24d8fa3a42c37e59aa"
+      }
+    },
+    {
+      "identity" : "octokit.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nerdishbynature/octokit.swift",
+      "state" : {
+        "revision" : "f762f1566f7cd0e683b9329f169c28ab6ef993cc",
+        "version" : "0.12.0"
+      }
+    },
+    {
+      "identity" : "requestkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nerdishbynature/RequestKit.git",
+      "state" : {
+        "revision" : "8b0258ea2a4345cbcac90509b764faacea12efb0",
+        "version" : "3.2.1"
       }
     },
     {
@@ -41,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto",
       "state" : {
-        "revision" : "92a04c10fc5ce0504f8396aac7392126033e547c",
-        "version" : "2.2.2"
+        "revision" : "33a20e650c33f6d72d822d558333f2085effa3dc",
+        "version" : "2.5.0"
       }
     },
     {

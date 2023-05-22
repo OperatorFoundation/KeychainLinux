@@ -279,6 +279,34 @@ public class Keychain: Codable, KeychainProtocol
 
         try FileManager.default.removeItem(at: fileURL)
     }
+
+    public func newSymmetricKey(sizeInBits: Int) -> SymmetricKey
+    {
+        let size = SymmetricKeySize(bitCount: sizeInBits)
+        let key = SymmetricKey(size: size)
+        return key
+    }
+
+    public func hmac(digest: DigestType, key: SymmetricKey, data: Data) -> AuthenticationCode
+    {
+        switch digest
+        {
+            case .SHA256:
+                let hmac = HMAC<SHA256>.authenticationCode(for: data, using: key)
+                let hmacData = Data(hmac)
+                return AuthenticationCode(type: digest, code: hmacData)
+
+            case .SHA384:
+                let hmac = HMAC<SHA384>.authenticationCode(for: data, using: key)
+                let hmacData = Data(hmac)
+                return AuthenticationCode(type: digest, code: hmacData)
+
+            case .SHA512:
+                let hmac = HMAC<SHA512>.authenticationCode(for: data, using: key)
+                let hmacData = Data(hmac)
+                return AuthenticationCode(type: digest, code: hmacData)
+        }
+    }
 }
 
 struct UsernameAndPassword: Codable

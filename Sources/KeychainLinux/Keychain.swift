@@ -258,19 +258,11 @@ public class Keychain: Codable, KeychainProtocol
             throw KeychainLinuxError.readFailed
         }
 
-        do
-        {
-            let keyData = try Data(contentsOf: fileURL, options: .uncached)
-            let decoder = JSONDecoder()
-            let credential: UsernameAndPassword = try decoder.decode(UsernameAndPassword.self, from: keyData)
+        let keyData = try Data(contentsOf: fileURL, options: .uncached)
+        let decoder = JSONDecoder()
+        let credential: UsernameAndPassword = try decoder.decode(UsernameAndPassword.self, from: keyData)
 
-            return (credential.username, credential.password)
-        }
-        catch let retrieveDataError
-        {
-            print("Error retrieving key: \(retrieveDataError)")
-            throw KeychainLinuxError.readFailed
-        }
+        return (credential.username, credential.password)
     }
 
     public func deletePassword(server: String) throws

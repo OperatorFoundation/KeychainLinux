@@ -228,33 +228,21 @@ public class Keychain: Codable, KeychainProtocol
     {
         let fileURL = keychainURL.appendingPathComponent("\(server).credential")
 
-        do
+        // Make sure that permissions have not been altered for the directory
+        let directoryAttributes = try FileManager.default.attributesOfItem(atPath: keychainURL.path)
+        let directoryPosixPermissions = directoryAttributes[.posixPermissions]
+
+        guard directoryPosixPermissions as? Int == 0o700 else
         {
-            // Make sure that permissions have not been altered for the directory
-            let directoryAttributes = try FileManager.default.attributesOfItem(atPath: keychainURL.path)
-            let directoryPosixPermissions = directoryAttributes[.posixPermissions]
-
-            guard directoryPosixPermissions as? Int == 0o700
-            else
-            {
-                print("Unable to retrieve the private key, the keychain directory permissions have been changed.")
-                throw KeychainLinuxError.readFailed
-            }
-
-            // Make sure that permissions have not been altered for the key file
-            let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
-            let filePosixPermissions = fileAttributes[.posixPermissions]
-
-            guard filePosixPermissions as? Int == 0o600
-            else
-            {
-                print("Unable to retrieve the private key, the key file permissions have been changed.")
-                throw KeychainLinuxError.readFailed
-            }
+            throw KeychainLinuxError.readFailed
         }
-        catch let permissionsError
+
+        // Make sure that permissions have not been altered for the key file
+        let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
+        let filePosixPermissions = fileAttributes[.posixPermissions]
+
+        guard filePosixPermissions as? Int == 0o600 else
         {
-            print("Error checking permission: \(permissionsError)" )
             throw KeychainLinuxError.readFailed
         }
 

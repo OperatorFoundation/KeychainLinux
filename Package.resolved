@@ -6,7 +6,7 @@
       "location" : "https://github.com/OperatorFoundation/Chord.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ab5237fbd0d0f02fb7d1c0ecf138aeb0b2ee7d9a"
+        "revision" : "0adb7fbf58ff5135b5516d61cec29b89b9a67678"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/OperatorFoundation/Datable",
       "state" : {
         "branch" : "main",
-        "revision" : "19a6479e2077259cf5ef7875b0ba34ab24e65d73"
+        "revision" : "5fa6bedcbc9435238c93bba16363d1744a3ef813"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/OperatorFoundation/Gardener",
       "state" : {
         "branch" : "main",
-        "revision" : "21a201a85e108dc0caf2cbbbae3cae0f5d59b169"
+        "revision" : "ea6bdb11df114dce28fc49b2e758235f2dcf705e"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/OperatorFoundation/KeychainTypes",
       "state" : {
         "branch" : "main",
-        "revision" : "d188743b4e8e854c8c3ecd24d8fa3a42c37e59aa"
+        "revision" : "130d904be4216c8c9ddeb5e7c98ea82765eebea0"
       }
     },
     {

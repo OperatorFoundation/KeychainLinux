@@ -234,13 +234,18 @@ public class Keychain: Codable, KeychainProtocol
         }
     }
 
-    public func storePassword(server: String, username: String, password: String) throws
+    public func storePassword(server: String, username: String, password: String, overwrite: Bool = false) throws
     {
         let credential = UsernameAndPassword(username: username, password: password)
         let encoder = JSONEncoder()
         let keyData = try encoder.encode(credential)
 
         let fileURL = keychainURL.appendingPathComponent("\(server).credential")
+        
+        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path())
+        {
+            throw KeychainLinuxError.storedPasswordAlreadyExists
+        }
 
         // Create a file with posix file permission set to "-rw-------"
         // non-directory, read and write for the owner of the file only, no one else can see that file exists (except root)
@@ -333,4 +338,5 @@ public enum KeychainLinuxError: Error
 {
     case readFailed
     case createPasswordFileFailed
+    case storedPasswordAlreadyExists
 }

@@ -242,7 +242,7 @@ public class Keychain: Codable, KeychainProtocol
 
         let fileURL = keychainURL.appendingPathComponent("\(server).credential")
         
-        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path())
+        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path)
         {
             throw KeychainLinuxError.storedPasswordAlreadyExists
         }

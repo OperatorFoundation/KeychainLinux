@@ -158,13 +158,19 @@ public class Keychain: Codable, KeychainProtocol
         }
     }
     
-    public func storePrivateKey(_ key: PrivateKey, label: String) -> Bool
+    public func storePrivateKey(_ key: PrivateKey, label: String, overwrite: Bool = false) -> Bool
     {
         guard let keyData = key.typedData else
         {
             return false
         }
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
+        
+        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path())
+        {
+            print("Unable to store private key, a key already exists and overwrite was set to false.")
+            return false
+        }
         
         // Create a file with posix file permission set to "-rw-------"
         // non-directory, read and write for the owner of the file only, no one else can see that file exists (except root)
@@ -339,4 +345,5 @@ public enum KeychainLinuxError: Error
     case readFailed
     case createPasswordFileFailed
     case storedPasswordAlreadyExists
+    case storedKeyAlreadyExists
 }

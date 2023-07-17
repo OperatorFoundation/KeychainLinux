@@ -166,7 +166,7 @@ public class Keychain: Codable, KeychainProtocol
         }
         let fileURL = keychainURL.appendingPathComponent("\(label).private")
         
-        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path())
+        if !overwrite && FileManager.default.fileExists(atPath: fileURL.path)
         {
             print("Unable to store private key, a key already exists and overwrite was set to false.")
             return false

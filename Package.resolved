@@ -6,7 +6,7 @@
       "location" : "https://github.com/OperatorFoundation/Chord.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0adb7fbf58ff5135b5516d61cec29b89b9a67678"
+        "revision" : "d75e3d3556b7f7f6fa220aa6f0a7c3ac0c37a280"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/OperatorFoundation/Datable",
       "state" : {
         "branch" : "main",
-        "revision" : "5fa6bedcbc9435238c93bba16363d1744a3ef813"
+        "revision" : "2bd089c0688434a9246ab4b4d4c814acaf4415ea"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/OperatorFoundation/Gardener",
       "state" : {
         "branch" : "main",
-        "revision" : "ea6bdb11df114dce28fc49b2e758235f2dcf705e"
+        "revision" : "443d0bbc06f8e389e2b1dc36b1d91294c66f082f"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/OperatorFoundation/KeychainTypes",
       "state" : {
         "branch" : "main",
-        "revision" : "754e0412ac803c0c5771d10b9903e0adaa04141f"
+        "revision" : "0158e8bc7fc18d45b11a42168fb56211f5ffa4ee"
       }
     },
     {
@@ -61,6 +61,15 @@
       "state" : {
         "revision" : "8b0258ea2a4345cbcac90509b764faacea12efb0",
         "version" : "3.2.1"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
+        "version" : "1.2.2"
       }
     },
     {

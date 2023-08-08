@@ -326,6 +326,72 @@ public class Keychain: Codable, KeychainProtocol
                 return AuthenticationCode(type: digest, code: hmacData)
         }
     }
+    
+    public func ecdh(privateKey: KeychainTypes.PrivateKey, publicKey: KeychainTypes.PublicKey) -> SymmetricKey?
+    {
+        let sharedSecret: SharedSecret
+        do
+        {
+            switch privateKey
+            {
+                case .Curve25519KeyAgreement(let privateKey):
+                    switch publicKey
+                    {
+                        case .Curve25519KeyAgreement(let publicKey):
+                            sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+                            
+                        default:
+                            return nil
+                    }
+
+                case .P256KeyAgreement(let privateKey):
+                    switch publicKey
+                    {
+                        case .P256KeyAgreement(let publicKey):
+                            sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+
+                        default:
+                            return nil
+                    }
+                case .P384KeyAgreement(let privateKey):
+                    switch publicKey
+                    {
+                        case .P384KeyAgreement(let publicKey):
+                            sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+
+                        default:
+                            return nil
+                    }
+                case .P521KeyAgreement(let privateKey):
+                    switch publicKey
+                    {
+                        case .P521KeyAgreement(let publicKey):
+                            sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+
+                        default:
+                            return nil
+                    }
+                default:
+                    return nil
+            }
+            
+            let sharedSecretData = sharedSecret.withUnsafeBytes
+            {
+                pointer in
+
+                return Data(pointer)
+            }
+            
+            let symmetricKey = SymmetricKey(data: sharedSecretData)
+            
+            return symmetricKey
+        }
+        catch
+        {
+            print("Error in ECDH: \(error)")
+            return nil
+        }
+    }
 }
 
 struct UsernameAndPassword: Codable

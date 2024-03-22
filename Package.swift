@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-crypto", from: "3.3.0"),
         .package(url: "https://github.com/OperatorFoundation/Gardener", from: "0.1.2"),
-        .package(url: "https://github.com/OperatorFoundation/KeychainTypes", from: "1.0.1"),
+        .package(url: "https://github.com/OperatorFoundation/KeychainTypes", from: "1.0.2"),
     ],
     targets: [
         .target(
